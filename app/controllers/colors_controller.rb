@@ -1,4 +1,4 @@
-class ColorsController < ApplicationController
+class ColorsController < OpenReadController
   before_action :set_color, only: [:show, :update, :destroy]
 
   # GET /colors
@@ -15,7 +15,9 @@ class ColorsController < ApplicationController
 
   # POST /colors
   def create
-    @color = Color.new(color_params)
+    # @color = Color.new(color_params)
+    # @color.user_id = current_user.id
+    @color = current_user.colors.build(color_params)
 
     if @color.save
       render json: @color, status: :created, location: @color
